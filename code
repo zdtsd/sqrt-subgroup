@@ -4,45 +4,48 @@
 
 using namespace std;
 
-long sqrtSize = 0;
 long sqrtScaledSize = 0;
 list<long> sqrtSet;
+//Input the size of the interval you want the set to be a sqrt of
 bool data [1000000];
 
+//Add attempts to add an input into the sqrt set.
 void Add(long i){
+    //Check for duplicates; return if i is already in the set
     list<long>::iterator findItr = find(sqrtSet.begin(), sqrtSet.end(), i);
     if(*findItr == i){
         return;
     }
+    //Print i
     cout << i << "\n";
-    sqrtSize++;
+    //Add i to the set
     sqrtSet.push_back(i);
+    //Iterate over the set to determine all values newly obtainable by squaring the set
     list<long>::iterator it;
     for(it = sqrtSet.begin(); it!= sqrtSet.end(); ++it){
         if(*it+i < sizeof(data)){
             data[*it + i] = true;
         }
-        if(i-*it >= 0 && i!= 0){
+        if(i-*it >= 0){
             data[i-*it] = true;
         }
         
     }
+    
+    //Get the "Scaled Size"; the size of the part of the sqrt set within [0, n], where n is the size of the interval.
+    //Known bug: off by one error
     if(i < sizeof(data)){
             sqrtScaledSize ++;
         }
     else{
         cout << "Scaled Size: " << sqrtScaledSize << "\n";
-        /*for(int i=0; i< sizeof(data); i++){
-            if(data[i]){
-                cout << i << "\n";
-            }
-        }*/
         exit(0);
     }
 }
 
 int main()
 {
+    //Iterage over the integers from 1->n, adding integers differing by k to the set for each k not obtained.
     long iterator = 0;
     while(iterator < sizeof(data)){
         if(data[iterator] == true){
@@ -54,14 +57,9 @@ int main()
             iterator++;
         }
     }
-    cout << "Size: " << sqrtSize << "\n";
     cout << "Scaled Size: " << sqrtScaledSize;
     
     
 
     return 0;
 }
-
-
-
-
