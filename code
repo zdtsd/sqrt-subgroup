@@ -1,0 +1,67 @@
+#include <iostream>
+#include <list>
+#include <algorithm>
+
+using namespace std;
+
+long sqrtSize = 0;
+long sqrtScaledSize = 0;
+list<long> sqrtSet;
+bool data [1000000];
+
+void Add(long i){
+    list<long>::iterator findItr = find(sqrtSet.begin(), sqrtSet.end(), i);
+    if(*findItr == i){
+        return;
+    }
+    cout << i << "\n";
+    sqrtSize++;
+    sqrtSet.push_back(i);
+    list<long>::iterator it;
+    for(it = sqrtSet.begin(); it!= sqrtSet.end(); ++it){
+        if(*it+i < sizeof(data)){
+            data[*it + i] = true;
+        }
+        if(i-*it >= 0 && i!= 0){
+            data[i-*it] = true;
+        }
+        
+    }
+    if(i < sizeof(data)){
+            sqrtScaledSize ++;
+        }
+    else{
+        cout << "Scaled Size: " << sqrtScaledSize << "\n";
+        /*for(int i=0; i< sizeof(data); i++){
+            if(data[i]){
+                cout << i << "\n";
+            }
+        }*/
+        exit(0);
+    }
+}
+
+int main()
+{
+    long iterator = 0;
+    while(iterator < sizeof(data)){
+        if(data[iterator] == true){
+            iterator++;
+        }
+        else{
+            Add(iterator * (iterator - 1)/2);
+            Add(iterator * (iterator + 1)/2);
+            iterator++;
+        }
+    }
+    cout << "Size: " << sqrtSize << "\n";
+    cout << "Scaled Size: " << sqrtScaledSize;
+    
+    
+
+    return 0;
+}
+
+
+
+
