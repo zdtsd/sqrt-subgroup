@@ -1,3 +1,15 @@
+/*----------------------
+Data(Expressed as approximate percentage size difference in sqrt sets on (-n, n) compared to the sequence of triangular numbers skipping every 3rd one):
+~15% worse for n=100
+~3% worse for n=1000
+~29% better for n=10000
+~23% better for n=10^5
+~13% better for n=10^6
+~17% better for n=10^7
+~23% better for n=10^8
+~26% better for n=10^9
+----------------------*/
+
 #include <iostream>
 #include <list>
 #include <algorithm>
